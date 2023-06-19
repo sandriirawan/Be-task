@@ -36,8 +36,8 @@
 ## Installation
 
 - npm install
-- npm run dev or npm run server
+- npm run start or yarn start
 
 ## Debug
 
-- npm run lint
+- npm run lint or yarn lint
