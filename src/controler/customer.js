@@ -58,7 +58,7 @@ const {
       };
       await insertCustomer(data)
         .then((result) =>
-          commonHelper.response(res, result.rows, 201, "Product created")
+          commonHelper.response(res, result.rows, 201, "created")
         )
         .catch((err) => res.send(err));
     },
@@ -79,7 +79,7 @@ const {
         };
           updateCustomer(data)
             .then((result) =>
-              commonHelper.response(res, result.rows, 200, "Product updated")
+              commonHelper.response(res, result.rows, 200, "updated")
             )
             .catch((err) => res.send(err));
         } catch (error) {
@@ -89,13 +89,13 @@ const {
     deleteCustomer: async (req, res) => {
       try {
         const customer_id = Number(req.params.id);
-        const { rowCount } = await findId(id);
+        const { rowCount } = await findId(customer_id);
         if (!rowCount) {
           res.json({message: "ID is Not Found"})
         }
         deleteCustomer(customer_id)
           .then((result) =>
-            commonHelper.response(res, result.rows, 200, "Product deleted")
+            commonHelper.response(res, result.rows, 200, "deleted")
           )
           .catch((err) => res.send(err));
       } catch (error) {

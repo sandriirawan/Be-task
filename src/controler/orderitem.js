@@ -16,7 +16,7 @@ const {
         const page = Number(req.query.page) || 1
         const limit = Number(req.query.limit) || 100
         const offset = (page - 1) * limit
-        const sortby = req.query.sortby || "order_item_id"
+        const sortby = req.query.sortby || "quantity"
         const sort = req.query.sort|| "ASC"
         let result = await selectAllOrderitem(sortby,sort,limit,offset)
         const {rows: [count]} = await countData()
@@ -56,7 +56,7 @@ const {
       };
       await insertOrderitem(data)
         .then((result) =>
-          commonHelper.response(res, result.rows, 201, "Product created")
+          commonHelper.response(res, result.rows, 201, "created")
         )
         .catch((err) => res.send(err));
     },
@@ -75,7 +75,7 @@ const {
         };
           updateOrderitem(data)
             .then((result) =>
-              commonHelper.response(res, result.rows, 200, "Product updated")
+              commonHelper.response(res, result.rows, 200, "updated")
             )
             .catch((err) => res.send(err));
         } catch (error) {
@@ -85,13 +85,13 @@ const {
     deleteOrderitem: async (req, res) => {
       try {
         const order_item_id = Number(req.params.id);
-        const { rowCount } = await findId(id);
+        const { rowCount } = await findId(order_item_id);
         if (!rowCount) {
           res.json({message: "ID is Not Found"})
         }
         deleteOrderitem(order_item_id)
           .then((result) =>
-            commonHelper.response(res, result.rows, 200, "Product deleted")
+            commonHelper.response(res, result.rows, 200, "deleted")
           )
           .catch((err) => res.send(err));
       } catch (error) {

@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const xss = require('xss-clean')
+const createError = require('http-errors')
 const mainRouter = require("./src/routes/index");
 const port = 3000;
 
@@ -14,6 +15,9 @@ app.use(cors());
 app.use(xss());
 app.use(morgan('dev'));
 app.use("/", mainRouter);
+app.use('*', (req, res, next) => {
+  next(new createError.NotFound())
+})
 app.use((err,req,res,next)=>{
   const messageError = err.message || "internal server error"
   const statusCode = err.status || 500

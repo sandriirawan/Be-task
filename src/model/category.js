@@ -19,7 +19,7 @@ const  updateCategory = (data) =>{
 }
 
 const deleteCategory= (category_id) =>{
-    return Pool.query(`DELETE FROM category WHERE id=${category_id}`);
+    return Pool.query(`DELETE FROM category WHERE category_id=${category_id}`);
 }
 
 const countData = () =>{

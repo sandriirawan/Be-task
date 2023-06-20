@@ -56,7 +56,7 @@ const {
       };
       await insertOrderTransaction(data)
         .then((result) =>
-          commonHelper.response(res, result.rows, 201, "Product created")
+          commonHelper.response(res, result.rows, 201, "created")
         )
         .catch((err) => res.send(err));
     },
@@ -75,7 +75,7 @@ const {
         };
           updateOrderTransaction(data)
             .then((result) =>
-              commonHelper.response(res, result.rows, 200, "Product updated")
+              commonHelper.response(res, result.rows, 200, "updated")
             )
             .catch((err) => res.send(err));
         } catch (error) {
@@ -85,13 +85,13 @@ const {
     deleteOrderTransaction: async (req, res) => {
       try {
         const order_id = Number(req.params.id);
-        const { rowCount } = await findId(id);
+        const { rowCount } = await findId(order_id);
         if (!rowCount) {
           res.json({message: "ID is Not Found"})
         }
         deleteOrderTransaction(order_id)
           .then((result) =>
-            commonHelper.response(res, result.rows, 200, "Product deleted")
+            commonHelper.response(res, result.rows, 200, "deleted")
           )
           .catch((err) => res.send(err));
       } catch (error) {

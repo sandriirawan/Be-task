@@ -1,7 +1,28 @@
 const Pool = require('../config/db');
 
 const selectAllOrderTransaction = (sortby,sort,limit,offset) =>{
-    return Pool.query(`SELECT * FROM order_transaction ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`);
+    return Pool.query(`
+    SELECT
+    order_transaction.order_id,
+    order_transaction.order_date,
+    customer.customer_name as name,
+    customer.email,
+    customer.phone_number,
+    customer.address,
+    order_item.quantity,
+    product.product_name,
+    product.shop_name as brand,
+    product.price,
+    product.color,
+    product.product_image,
+    category.category_name as category,
+    category.category_image
+  FROM order_transaction
+  JOIN customer ON order_transaction.customer_id = customer.customer_id
+  JOIN order_item ON order_transaction.order_item_id = order_item.order_item_id
+  JOIN product ON order_item.product_id = product.product_id
+  JOIN category ON product.category_id = category.category_id
+  ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 }
 
 const selectOrderTransaction = (order_id) =>{

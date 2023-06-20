@@ -1,7 +1,20 @@
 const Pool = require('../config/db');
 
 const selectAllProduct = (sortby,sort,limit,offset) =>{
-    return Pool.query(`SELECT * FROM product ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`);
+    return Pool.query(`SELECT
+    product.product_id,
+    product.product_name as product,
+    product.shop_name as brand,
+    product.price,
+    product.color,
+    product.product_image,
+    category.category_name as category,
+    category.category_image
+  FROM
+    product
+  JOIN
+    category ON product.category_id = category.category_id
+    ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 }
 
 const selectProduct = (product_id) => {
@@ -21,7 +34,7 @@ const selectProduct = (product_id) => {
   };
   
   const deleteProduct = (product_id) => {
-    return Pool.query(`DELETE FROM product WHERE id=${product_id}`);
+    return Pool.query(`DELETE FROM product WHERE product_id=${product_id}`);
   };
   
   const countData = () => {

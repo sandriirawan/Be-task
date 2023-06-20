@@ -91,7 +91,7 @@ const {
     deleteProduct: async (req, res) => {
       try {
         const product_id = Number(req.params.id);
-        const { rowCount } = await findId(id);
+        const { rowCount } = await findId(product_id);
         if (!rowCount) {
           res.json({message: "ID is Not Found"})
         }
